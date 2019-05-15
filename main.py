@@ -23,24 +23,50 @@ class Blog(db.Model):
 @app.route('/newpost', methods=['GET', 'POST'])
 def add_newpost():
     if request.method == 'POST':
-         title = request.form['title']
-         body = request.form['body']
-         new_blog = Blog(title, body)
-         db.session.add(new_blog)
-         db.session.commit()
-         new_blog = new_blog.id
-         #return redirect ('/blog?id=new_blog')
-    
+        title = request.form['title']
+        body = request.form['body']
+        
+        title_error = ''
+        body_error = ''
+
+        if title == '' and body == '':
+            title_error = "Please fill out a title"
+            title = ''
+            body_error = "Please fill out a body"
+            body = ''
+            return render_template('newpost.html', title_error=title_error,
+            body_error=body_error)
+
+        if title == '' and not body == '':
+            title_error = "Please fill out the title."
+            title = ''
+            return render_template('newpost.html', title_error=title_error)
+
+        if not title == '' and body == '':
+            body_error = "Please fill out the body."
+            body = ''
+            return render_template('newpost.html', body_error=body_error)
+
+        new_blog = Blog(title, body)
+        db.session.add(new_blog)
+        db.session.commit()
+        blog_id = new_blog.id
+        
+        return redirect ("/blog?id=" + str(blog_id))
 
     return render_template('newpost.html', title = 'Add a Blog Entry!')
-
+            
 
 @app.route('/blog', methods = ['GET', 'POST'])
 def blogs():
-    new_blog = new_blog.id
-    return render_template('blog.html',title="Build a Blog", new_blog=new_blog)
+    blog_id = request.args.get('id')
+     
+    if blog_id is not None:
+        blog = Blog.query.get(int(blog_id))
+        return render_template('individual_blog.html', blog=blog)
 
-
+    all_blogs = Blog.query.all()
+    return render_template('blog.html',title="Build a Blog", all_blogs=all_blogs)
 
 
 if __name__ == '__main__':
