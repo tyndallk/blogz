@@ -14,42 +14,32 @@ class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120))
     body = db.Column(db.String(10000))
-    posted = db.Column(db.Boolean)
 
-    def __init__(self, name):
-        self.name = name
-        self.posted = False
-
-
-# @app.route('/', methods=['POST', 'GET'])
-# def index():
-#      return render_template('blog.html',title="Get It Done!")
-
-
-
-
-@app.route('/blog', methods = ['GET', 'POST'])
-def blogs():
-    blog_id = request.form['blog-id']
-    blog = Blog.query.get['blog_id']
-    blog.posted = True
-    posted_blog = Blog.query.filter_by(posted=True).all()
-    
-    return render_template('blog.html',title="Build a Blog", posted_blog=posted_blog)
-
+    def __init__(self, title, body):
+        self.title = title
+        self.body = body
 
 
 @app.route('/newpost', methods=['GET', 'POST'])
 def add_newpost():
     if request.method == 'POST':
-         post_title = request.form['title']
-         db.session.add(title)
+         title = request.form['title']
+         body = request.form['body']
+         new_blog = Blog(title, body)
+         db.session.add(new_blog)
          db.session.commit()
-         post_body = request.form['body']
-         db.session.add(body)
-         db.session.commit()
+         new_blog = new_blog.id
+         #return redirect ('/blog?id=new_blog')
+    
 
     return render_template('newpost.html', title = 'Add a Blog Entry!')
+
+
+@app.route('/blog', methods = ['GET', 'POST'])
+def blogs():
+    new_blog = new_blog.id
+    return render_template('blog.html',title="Build a Blog", new_blog=new_blog)
+
 
 
 

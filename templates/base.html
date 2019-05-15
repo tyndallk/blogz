@@ -6,21 +6,23 @@
             .error {
                 color: red;
             }
-            nav {
-                display: inline;
-                margin-right: 20px;
-            }
+            /* .navbar {
+                display: block;
+                display: inline-block;
+                margin-right: 10px;
+            } */
             h1 {
                 text-align: center;
             }
         </style>
     </head>
 <body>
-
-    <nav>
-        <a href='/newpost'display = > Add a Blog Entry </a>
-        <a href='/blog'> Main Blog Page </a>
-    </nav>
+    <div class = "navbar">
+        <nav>
+                <a href='/newpost'display = > Add a Blog Entry </a>
+                <span><a href='/blog'> Main Blog Page </a></span>
+        </nav>
+    </div>
 
 
     {% block content %}

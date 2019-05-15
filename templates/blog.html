@@ -4,9 +4,9 @@
     <h1>Build a Blog</h1>
 
     <ul>
-        {% for blog in posted_blog %}
-        <li>{{title.name}}</li>
-        <li>{{post.name}}</li>
+        {% for blog in blogs %}
+        <li>{{blog.title}}</li>
+        <li>{{blog.post}}</li>
         {% endfor %}
     </ul>
 </hr>
