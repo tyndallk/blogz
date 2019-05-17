@@ -9,18 +9,26 @@
             h1 {
                 text-align: center;
             }
-            nav span {
+            .topnav a {
                 padding-right: 10px;
+            }
+            .topnav-right{
+                padding-right: 10px;
+                float: right;
+
             }
 
         </style>
     </head>
 <body>
-    <div>
-        <nav>
-                <span><a href='/newpost' > Add a Blog Entry </a></span>
-                <span><a href='/blog'> Main Blog Page </a></span>
-        </nav>
+    <div class = "topnav">
+        <a href='/'> Home </a>
+        <a href='/blog'> All Posts </a>
+        <a href='/newpost' > New Post </a>
+        <div class = "topnav-right">
+            <a href='/login'>Login</a>
+            <a href='/logout'>Logout</a>
+        </div>
     </div>
 
 
